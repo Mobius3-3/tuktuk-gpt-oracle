@@ -12,7 +12,7 @@ pub struct Interact<'info> {
     #[account(mut)]
     pub payer: Signer<'info>,
 
-    ///CHECK: Checked oracle id
+    ///CHECK: Oracle Id
     #[account(mut)]
     pub interaction: AccountInfo<'info>,
 
@@ -23,7 +23,7 @@ pub struct Interact<'info> {
     pub agent: Account<'info, Agent>,
 
     #[account(address=agent.context)]
-    pub context_acount: Account<'info, ContextAccount>,
+    pub context_account: Account<'info, ContextAccount>,
 
     ///CHECK: Oracle Id
     #[account(address=solana_gpt_oracle::ID)]
@@ -36,7 +36,7 @@ impl<'info> Interact<'info> {
         let cpi_program = self.oracle_program.to_account_info();
         let cpi_account = solana_gpt_oracle::cpi::accounts::InteractWithLlm {
             payer: self.payer.to_account_info(),
-            context_account: self.context_acount.to_account_info(),
+            context_account: self.context_account.to_account_info(),
             interaction: self.interaction.to_account_info(),
             system_program: self.system_program.to_account_info(),
         };
